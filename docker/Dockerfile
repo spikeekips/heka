@@ -9,6 +9,7 @@ RUN cd /heka && . ./env.sh && cd /heka/build && make deb
 RUN mkdir -p /heka_docker
 RUN find /heka/build -name "*.deb" -exec cp {} /heka_docker/heka.deb \;
 COPY Dockerfile.final /heka_docker/Dockerfile
+ADD ./entrypoint.sh /heka_docker/entrypoint.sh
 
 RUN curl -sSL https://get.docker.io/builds/Linux/x86_64/docker-1.2.0 -o /tmp/docker && \
     echo "540459bc5d9f1cac17fe8654891814314db15e77 /tmp/docker" | sha1sum -c - && \

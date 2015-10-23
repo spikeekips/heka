@@ -4,8 +4,10 @@ FROM debian:jessie
 MAINTAINER Chance Zibolski <chance.zibolski@gmail.com> (@chance)
 
 COPY heka.deb /tmp/heka.deb
-RUN apt-get update && apt-get install -y libgeoip1
+RUN apt-get update && apt-get install -y libgeoip1 curl
 RUN dpkg -i /tmp/heka.deb && rm /tmp/heka.deb
 
 EXPOSE 4352
-ENTRYPOINT ["hekad", "-config=/etc/heka/conf.d"]
+
+COPY ./entrypoint.sh /entrypoint.sh
+ENTRYPOINT ["/entrypoint.sh"]
